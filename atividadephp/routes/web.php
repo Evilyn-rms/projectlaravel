@@ -18,20 +18,22 @@ use Illuminate\Support\Facades\Route;
 });
 */
 
-Route::get('/Hello/{name}', function (str $name) {
-    if ($name <3){
-        echo 'É necessário mais de 3 digitos';
-    }
-    elseif(is_int($name)){
-        echo 'Seu nome deve conter apenas letras';
-    }
-    else{
-        echo 'Olá, '. $name. ', bem-vindo ao meu site';
-    }
-});
+Route::get('/Hello/{name}', function ($name) {
+    return 'Olá, '. $name. ', bem-vindo ao meu site';
+}) ->where('name', '[A-Za-z]{3,}$');
 
-Route::get('/conta/{number1}/{number2}/{operacao?}', function (int $number1, $number2, $operacao){
-    if ($operacao == 'soma'){
+Route::get('/conta/{number1}/{number2}/{operacao?}', function ($number1, $number2){
+    $soma= $number1 + $number2;
+    $subtracao= $number1 - $number2;
+    $multiplicacao= $number1 * $number2;
+    $divisao= $number1 / $number2;
+})
+->where(['number1' => '[0-9]+', 'number2' => '[0-9]+'])
+->whereIn('operacao', ['soma', 'subtracao', 'multiplicacao', 'divisao'])
+->name('conta');
+
+
+    /*if ($operacao == 'soma'){
         $operacaoSoma = $number1 + $number2;
         return $number1. '+'. $number2. '='. $operacaoSoma;
     }
@@ -46,5 +48,4 @@ Route::get('/conta/{number1}/{number2}/{operacao?}', function (int $number1, $nu
     elseif ($operacao == 'divisao'){
         $operacaoDivisao = $number1 / $number2;
         return $number1. '/'. $number2. '='. $operacaoDivisao;
-    }
-});
+    }*/
