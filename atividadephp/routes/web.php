@@ -1,7 +1,4 @@
 <?php
-
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,35 +14,20 @@ use Illuminate\Support\Facades\Route;
     return view('welcome');
 });
 */
+use App\Http\Controllers\CalculateController;
+use Illuminate\Support\Facades\Route;
+
 
 Route::get('/Hello/{name}', function ($name) {
     return 'Olá, '. $name. ', bem-vindo ao meu site';
 }) ->where('name', '[A-Za-z]{3,}$');
 
-Route::get('/conta/{number1}/{number2}/{operacao?}', function ($number1, $number2){
-    $soma= $number1 + $number2;
-    $subtracao= $number1 - $number2;
-    $multiplicacao= $number1 * $number2;
-    $divisao= $number1 / $number2;
-})
-->where(['number1' => '[0-9]+', 'number2' => '[0-9]+'])
-->whereIn('operacao', ['soma', 'subtracao', 'multiplicacao', 'divisao'])
-->name('conta');
+Route::get('/conta/{number1}/{number2}/{operator?}', [CalculateController::class, 'calculate'])
 
+->where('number1', '^[1-9][0-9]?$')
+->where('number2', '^[1-9][0-9]?$')
+->whereIn('operacao', ['soma', 'subtracao', 'multiplicacao', 'divisao']);
 
-    /*if ($operacao == 'soma'){
-        $operacaoSoma = $number1 + $number2;
-        return $number1. '+'. $number2. '='. $operacaoSoma;
-    }
-    elseif ($operacao == 'subtracao'){
-        $operacaoSubtracao = $number1 - $number2;
-        return $number1. '-'. $number2. '='. $operacaoSubtracao;
-    }
-    elseif ($operacao == 'multiplicacao'){
-        $operacaoMultiplicacao = $number1 * $number2;
-        return $number1. 'x'. $number2. '='. $operacaoMultiplicacao;
-    }
-    elseif ($operacao == 'divisao'){
-        $operacaoDivisao = $number1 / $number2;
-        return $number1. '/'. $number2. '='. $operacaoDivisao;
-    }*/
+Route::get('/idade/{year}/{month?}/{day?}', [BirthdayController::class, 'calculateDate'])->where('year', '[0-9]{4}')
+->where('month', '[0-9]{1,2}?')
+->where('day', '[0-9]{1,2}?');
