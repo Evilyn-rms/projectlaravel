@@ -14,13 +14,13 @@
     return view('welcome');
 });
 */
+use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\CalculateController;
+use App\Http\Controllers\BirthdayController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/Hello/{name}', function ($name) {
-    return 'Olá, '. $name. ', bem-vindo ao meu site';
-}) ->where('name', '[A-Za-z]{3,}$');
+Route::get('/Hello/{name}', [WelcomeController::class, 'hello'])->where('name', '[A-Z][a-z]{3,}$');
 
 Route::get('/conta/{number1}/{number2}/{operator?}', [CalculateController::class, 'calculate'])
 
