@@ -20,7 +20,8 @@ use App\Http\Controllers\BirthdayController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::get('/Hello/{name}', [WelcomeController::class, 'hello'])->where('name', '[A-Z][a-z]{3,}$');
+Route::get('/hello/{name}', [WelcomeController::class, 'hello'])
+->where('name', '[A-Z][a-z]{3,}$');
 
 Route::get('/conta/{number1}/{number2}/{operator?}', [CalculateController::class, 'calculate'])
 

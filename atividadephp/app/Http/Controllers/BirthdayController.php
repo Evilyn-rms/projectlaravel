@@ -18,7 +18,7 @@ class BirthdayController extends Controller
         } else if($month === null || $day === null) {
             $res = "Tem " . $presentDate->format('Y') - $year . " anos de idade.";
         } else {
-            $res = "Você possui " . $date->format('%y') . " anos, " . $date->format('%m') . " meses e " . $date->format('%d') . " dias de idade.";
+            $res = "Você possui " . $date->format('%y') . " ano(s), " . $date->format('%m') . " mês(es) e " . $date->format('%d') . " dias de idade.";
         }
         return $res;
     }
