@@ -22,7 +22,5 @@ class BirthdayController extends Controller
              .$date->format('%m') . " meses, "
               .$date->format('%d') . " dias.";
         }
-
-        return view('idade', ['result' => $res]);
     }
 }
