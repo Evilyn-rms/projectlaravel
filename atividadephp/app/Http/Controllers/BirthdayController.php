@@ -7,8 +7,8 @@ use Carbon\Carbon;
 class BirthdayController extends Controller
 {
     public function calculateDate($year, $month = null, $day = null) {
-        $presentDate = Carbon::now('SouthAmerica/Sao_Paulo');
-        $birthDate = Carbon::createFromDate($year, $month, $day, 'SouthAmerica/Sao_Paulo');
+        $presentDate = Carbon::now('America/Sao_Paulo');
+        $birthDate = Carbon::createFromDate($year, $month, $day, 'America/Sao_Paulo');
         $date = $birthDate->diff($presentDate);
 
         if($birthDate > $presentDate) {
@@ -18,9 +18,8 @@ class BirthdayController extends Controller
         } else if($month === null || $day === null) {
             $res = "Tem " . $presentDate->format('Y') - $year . " anos de idade.";
         } else {
-            $res = "Tem " .$date->format('%y') . " anos, " 
-             .$date->format('%m') . " meses, "
-              .$date->format('%d') . " dias.";
+            $res = "Você possui " . $date->format('%y') . " anos, " . $date->format('%m') . " meses e " . $date->format('%d') . " dias de idade.";
         }
+        return $res;
     }
 }
